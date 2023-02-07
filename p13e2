@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<math.h>
+
+int op(int a,int b,int c)
+{if(a>b&&a>c)
+return a;
+else if(b>a&&b>c)
+return b;
+else if(c>a&&b<c)
+return c;
+else
+ return 0;
+}
+
+int main()
+{
+    int a,b,c;
+    
+    scanf("%d%d%d",&a,&b,&c);
+    op(a,b,c);
+    printf("Largest one = %d",op(a,b,c));
+    return 0;
+}

@@ -1,6 +1,6 @@
 import java.util.*;
 public class rogh{
-    public static void prsum(int n,int arr[]){
+    public static void presum(int n,int arr[]){
         int sum=0,mxsum=Integer.MIN_VALUE;
      for(int i=0;i<n;i++){
         for(int j=0;j<n;j++){
@@ -34,6 +34,6 @@ public class rogh{
             System.out.print("\n");
             
 
-            prsum(n,arr);
+            presum(n,arr);
             
     }}

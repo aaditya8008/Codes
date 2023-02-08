@@ -12,7 +12,7 @@ printf("Enter first complex:\n");
 scanf("%f%f",&c1.r1,&c1.i1);
 printf("Enter second complex\n");
 scanf("%f%f",&c2.r2,&c2.i2);
-printf("Sum= %.2f + i %f",(c1.r1*c2.r2-c1.i1*c2.i2),(c1.r1*c2.r2+c1.i1*c2.i2));
+printf("Sum= %.2f + i %.2f",(c1.r1*c2.r2-c1.i1*c2.i2),(c1.r1*c2.r2+c1.i1*c2.i2));
 }
 int main(){
 struct cp1 c1;

@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+FILE *ptr,*ptr2;
+ptr=fopen("namel.txt","r");
+if(ptr==NULL){
+printf("FILE doesn't exists\n");
+exit(0);
+
+}
+ptr2=fopen("tt.txt","w");
+char ch=fgetc(ptr);
+while(ch!=EOF){
+fputc(ch,ptr2);
+ch=fgetc(ptr);
+
+}
+fclose(ptr);
+fclose(ptr);
+
+}

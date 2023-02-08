@@ -14,12 +14,23 @@ public class rogh{
         }
         
             for(int c=1;c<=i;c++){
-                System.out.print(" "+i);
+                System.out.print(" *");
                 }
         
         System.out.print("\n");
         }
-       
+        for(int i=0;i<=n;i++){
+           
+            for(int j=1;j<=i;j++){
+             System.out.print(" ");
+            }
+            
+                for(int c=1;c<=n-i;c++){
+                    System.out.print(" *");
+                    }
+            
+            System.out.print("\n");
+            }
        
 
     }

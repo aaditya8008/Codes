@@ -1,4 +1,3 @@
-if(ftr==NULL){
-        printf("Cant access file1\n");
-        exit(0);
-    }
+for(int i=0;i<n;i++){
+    printf("%d\n",arr[i]);
+}

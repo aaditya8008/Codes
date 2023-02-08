@@ -1,33 +1,39 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 public class rogh{
-    public static int clear(int n){
-        int count=0;
-        for(int i=0;n!=0;i++){
-           if((n&1)!=0)
-           count++;
+public static void main(String args[]){
+pen p1=new pen();
+p1.setcolor("Blue");
+System.out.println(p1.color);
+p1.settip(5);
+System.out.println(p1.tip);
+bankacc myacc=new bankacc();
+myacc.username="Aaditya";
+myacc.setpassword("abcdeg");
 
-          n= n>>1;
-        }
-       return count;
-    }
-    
-    public static void main(String args[]){
-       Scanner sc=new Scanner(System.in);
-       
-       int n=sc.nextInt();
-       
-       
-       
-       
+}
+}
+class bankacc{
+ public String username;
+ private String password;
+void setpassword(String newpassword){
+password=newpassword;
 
-       System.out.print(clear(n));
-    return ;
-       
+}
+}
 
-    }
 
-    }
 
-    
+
+
+  class pen{
+   String color;
+   int tip;
+   void setcolor(String newcolor){
+      color=newcolor;
+   }
+   void settip(int newtip){
+    tip =newtip;
+
+   }
+  }  
 

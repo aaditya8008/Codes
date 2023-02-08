@@ -1,6 +1,6 @@
 import java.util.Arrays;
 import java.util.*;
-public class Rainwaterown{
+public class rogh{
     public static void max(int arr[],int n){
         int larr[]=new int[n];
         int rarr[]=new int[n];

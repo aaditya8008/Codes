@@ -1,5 +1,5 @@
 #include<stdio.h>
-int main(){int r=10,c=10;
+int main(){int r=3,c=3;
 
     int arr[r][c];
     for(int i=0;i<r;i++){

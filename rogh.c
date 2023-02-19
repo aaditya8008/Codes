@@ -1,23 +1,25 @@
-  #include<stdio.h>
-#include<stdlib.h>
-int main(){
-    int n;
-    scanf("%d",&n);
-int *ptr,i=0,j=1;
-ptr=(int*)malloc(n*sizeof(int));
-while(i<10){
-    if((j)%2==0){
-        ptr[i]=j;
-        i++;
+#include<stdio.h>
+int conv(int *arr,int n){
+    printf("Enter elements again\n");
+for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
+    };
+
+
+}
+int main(){int n,max,min;
+scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
     }
-    j++;
-}
-for(int i=0;i<n;i++){
-printf("%d\n",ptr[i]);
-}
-ptr=realloc(ptr,n*sizeof(int));
-for(int i=0;i<n;i++){
-printf("%d\n",ptr[i]);
-}
-free(ptr);
-}
+    int *ptr=arr;
+    
+    conv(&arr[0],n);
+    for(int c=0;c<n;c++){
+      
+            printf("%d",arr[c]);
+        
+       }
+
+    return 0;}

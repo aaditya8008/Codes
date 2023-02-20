@@ -11,7 +11,7 @@ j++;
     else {
      j=j*2;
     *(ptr+(j))='\0';}
-   
+   return *ptr;
 
 }
 

@@ -5,18 +5,11 @@ char name[10];
 int rollno;
 struct node *next;
 }*n1,*n2,*extra;
-struct node *add(struct node *n){
-    extra=(struct node*)malloc(sizeof(struct node));
-printf("Enter extra\n");
-scanf("%s%d",extra->name,&extra->rollno);
-while(n->next!=NULL){
-n=n->next;
-
-}
-n->next=extra;
-extra->next=NULL;
-
-    return extra;
+struct node *del(struct node *head){
+struct node *n=head;
+head=head->next;
+free(n);
+return head;
     }
 void print(struct node *n){
     while(n!=NULL){
@@ -39,6 +32,6 @@ n2->next=NULL;
 
 
 print(n1);
-add(n1);
+n1=del(n1);    //After this element
 print(n1);
 }

@@ -5,7 +5,7 @@ float i;
 
 }c1,c2,*ptr;
 void sum(struct cp *ptr,struct cp c2){
-printf("%.2f + i %.2f",(ptr->r*c2.r)-(ptr->i*c2.i),(ptr->r*c2.r)+(ptr->i*c2.i));
+printf("%.2f + i %.2f",((*ptr).r*c2.r)-(ptr->i*c2.i),(ptr->r*c2.r)+(ptr->i*c2.i));
 
 }
 int main(){

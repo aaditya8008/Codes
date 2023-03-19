@@ -8,12 +8,14 @@ struct student*next;
 
 }*s1,*s2,*s3;
 void print(struct student *nxt){
+    
 while(nxt!=NULL){
 printf("%s\t%d\t%.2f\n",nxt->name,nxt->class,nxt->cgpa);
 nxt=nxt->next;
 
 
-}}
+}
+}
 
 
 int main(){

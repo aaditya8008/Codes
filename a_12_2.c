@@ -2,7 +2,7 @@
 #include<stdlib.h>
 struct node{
 int num;
-struct node *next;
+struct node *next;         //insertion at middle
 }*n1,*n2,*n3,*n4;
 struct node * insert(struct node*head){
 struct node *n=head;

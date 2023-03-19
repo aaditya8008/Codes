@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct node{
-int num;
+int num;                           //insertion in start
 struct node *next;
 }*n1,*n2,*n3,*n4;
 struct node * insert(struct node*head){

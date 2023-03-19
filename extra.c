@@ -18,22 +18,30 @@ prev=n;
 return head;
 }
 struct node *merge(struct node *head1,struct node *head2){
-n1=head1;
-n2=head2;
 int i=0;
-
-while(n1!=NULL&&n2!=NULL){
+while(head2!=NULL&&head1!=NULL){
 n=(struct node*)malloc(sizeof(struct node));
 if(i=0){
-head3=n;
-prev=head3;}
-if(n2->data<n1->data){
-n=n2;
-n2=n2->next;
+head=n;
+prev=head;}
+if(head1==NULL){
+    n->data=head2->data;
+    
+    head2=head2->next;
+}
+if(head2==NULL){
+    n->data=head1->data;
+    
+    head1=head1->next;
+}
+
+if(head2<head1){
+n->data=head2->data;
+head2=head2->next;
 }
 else {
-n=n1;
-n1=n1->next;
+n->data=head1->data;
+head1=head1->next;
 }
 
 i++;
@@ -45,9 +53,8 @@ prev->next=n;
 n->next=NULL;
 
 prev=n;
-printf("YES\n");}
-return head3;
-    
+}
+return head;
 
 }
 int main(){
@@ -63,11 +70,11 @@ int main(){
     for(int i=0;i<num;i++){
         create(n,num,i);
     }head2=head;
-    head3=merge(head1,head2);
+    head=merge(head1,head2);
     printf("Merged list :\n");
-    while(head3!=NULL){
-    printf("%d\n",head3->data);
-    head3=head3->next;}
+    while(head!=NULL){
+    printf("%d\n",head->data);
+    head=head->next;}
     
     
 }

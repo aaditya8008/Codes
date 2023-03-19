@@ -5,14 +5,11 @@ struct node{
     struct node*next;
 }*n,*prev,*head,*temp,*new,*p,*q;
 
-//deletion at middle
+//deletion at end
 struct node *delete(struct node *head){  
-    int num;
-    printf("Data of element to be deleted:\n");
-    scanf("%d",&num);
     q=head;
     p=head->next;
-    while(p->data!=num){
+    while(p->next!=NULL){
         q=q->next;
         p=p->next;
     }

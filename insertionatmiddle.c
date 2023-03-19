@@ -3,22 +3,24 @@
 struct node{
     int data;
     struct node*next;
-}*n,*prev,*head,*temp,*new,*p,*q;
+}*n,*prev,*head,*temp,*new;
 
-//deletion at middle
-struct node *delete(struct node *head){  
+//insertion at middle
+struct node *insert(struct node *head){  
+    temp=head;    
     int num;
-    printf("Data of element to be deleted:\n");
+    printf("Insert at data = \n");
     scanf("%d",&num);
-    q=head;
-    p=head->next;
-    while(p->data!=num){
-        q=q->next;
-        p=p->next;
+    while(temp->data!=num) {
+        temp=temp->next;
     }
-      q->next=p->next;
-    
-    free(p);
+new=(struct node *)malloc(sizeof(struct node));
+printf("Enter new Element :\n");
+scanf("%d",&new->data);
+
+new->next=temp->next;
+temp->next=new;
+
 return head;
 
 }
@@ -45,7 +47,7 @@ for(int i=0;i<num;i++){
     create(n,num,i);
 }
 
-head=delete(head);        //deletion call,head changed
+head=insert(head);        //insertion call,head changed
 temp=head;
 printf("Data is :\n");
 while(temp!=NULL){

@@ -20,40 +20,35 @@ return head;
 struct node *merge(struct node *head1,struct node *head2){
 n1=head1;
 n2=head2;
-
 int i=0;
-while(1){
-n3=(struct node*)malloc(sizeof(struct node));
-if(i==0){
-    head3=n3;
-    prev=head3;
-}
-if(n1==NULL){
-n3->data=n2->data;
-//n2=n2->next;
-break;
-}
-if(n2==NULL){
-n3->data=n1->data;
-//n1=n1->next;
-break;
-}
-if(n2->data<=n1->data){
-n3->data=n2->data;
+
+while(n1!=NULL&&n2!=NULL){
+n=(struct node*)malloc(sizeof(struct node));
+if(i=0){
+head3=n;
+prev=head3;}
+if(n2->data<n1->data){
+n=n2;
 n2=n2->next;
 }
-else if(n1->data<n2->data){
-n3->data=n1->data;
+else {
+n=n1;
 n1=n1->next;
 }
 
-prev->next=n3;
-n3->next=NULL;
-prev=n3;
 i++;
-}
 
+
+
+prev->next=n;
+
+n->next=NULL;
+
+prev=n;
+printf("YES\n");}
 return head3;
+    
+
 }
 int main(){
     int num;

@@ -5,29 +5,25 @@ int num;
 struct node *next;         
 }*n1,*n2,*n3,*n4,*p,*q;
 int cycle(struct node *head){
-    int exist=0,count;
+    int exist=0;
 p=q=head;
 while(q&&q->next){
 p=p->next;
 q=q->next->next;
 if(q==p){
     printf("Cycle\n");
-    exist=0;
+    exist=1;
     break;
 }
-count=1;
-}if(1){
 
-while(q&&q->next){
+}if(exist){
+p=head;
+while(p!=q){
+     
+    p=p->next;
     q=q->next;
-    if(p==q){
-        break;
-    }
-    
-    count++;
-    
 }
-printf("count=%d",count);
+printf("data=%d",p->num);
 }
 else{
     printf("No loop exists\n");

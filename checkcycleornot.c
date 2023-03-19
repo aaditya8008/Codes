@@ -6,7 +6,7 @@ struct node *next;
 }*n1,*n2,*n3,*n4,*p,*q;
 int cycle(struct node *head){
 p=q=head;
-while(q&&q->next){
+while(q&&q->next){          //q!=NULL
 p=p->next;
 q=q->next->next;
 if(q==p){

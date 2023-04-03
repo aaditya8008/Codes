@@ -35,17 +35,15 @@ for(int i=0;i<s->size;i++){
     
     }
 }
-int peek(struct stack *s){
-    int i;
-    printf("Enter element num:\n");
-    scanf("%d",&i);
-    if((s->top-i+1)<0){
-    printf("Invalid Index\n");
-    return 0;
-    }
-
-    printf("%d",s->arr[s->top-i+1]);
-
+int push(struct stack *s){
+    if(isempty(s))
+    printf("Stack underflow:\n");
+    if(isfull(s)){
+    printf("stack overflow:\n");
+    return 0;}
+    printf("Enter Element:\n");
+s->top++;
+scanf("%d",&s->arr[s->top]);
 }
 
 
@@ -66,6 +64,11 @@ int main(){
     }
     realloc(s->arr,s->size+sizeof(int));
     s->size++;
-    peek(s);
-
+    push(s);
+printf("Elements are:\n");
+    for(int i=0;i<=s->top;i++){
+        
+    printf("%d\n",s->arr[i]);
+    
+    }
 }

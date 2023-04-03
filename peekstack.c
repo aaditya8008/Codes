@@ -39,7 +39,7 @@ int peek(struct stack *s){
     int i;
     printf("Enter element num:\n");
     scanf("%d",&i);
-    if((s->top-i+1)<0){
+    if((s->top-i+1)<0||i==0){
     printf("Invalid Index\n");
     return 0;
     }

@@ -24,9 +24,11 @@ int isempty(struct stack*s){
 int main(){
     struct stack*s;
     s->arr=(int*)malloc(s->size*sizeof(int));
+    
     printf("Enter size ,top:\n");
     scanf("%d%d",&(s->size),&(s->top));
-    
+    s->arr[0]=5;
+    s->top++;
     
     if(isempty(s))
     printf("Not exists:\n");

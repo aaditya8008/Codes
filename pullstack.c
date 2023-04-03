@@ -35,16 +35,14 @@ for(int i=0;i<s->size;i++){
     
     }
 }
-int peek(struct stack *s){
-    int i;
-    printf("Enter element num:\n");
-    scanf("%d",&i);
-    if((s->top-i+1)<0){
-    printf("Invalid Index\n");
+int pop(struct stack *s){
+    if(isempty(s)){
+    printf("Stack underflow:\n");
     return 0;
     }
-
-    printf("%d",s->arr[s->top-i+1]);
+    printf("Removed Element:\n");
+    int temp=s->arr[s->top];
+s->top--;
 
 }
 
@@ -66,6 +64,11 @@ int main(){
     }
     realloc(s->arr,s->size+sizeof(int));
     s->size++;
-    peek(s);
-
+    pop(s);
+printf("Elements are:\n");
+    for(int i=0;i<=s->top;i++){
+        
+    printf("%d\n",s->arr[i]);
+    
+    }
 }

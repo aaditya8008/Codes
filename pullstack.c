@@ -43,7 +43,7 @@ int pop(struct stack *s){
     printf("Removed Element:\n");
     int temp=s->arr[s->top];
 s->top--;
-
+return temp;
 }
 
 

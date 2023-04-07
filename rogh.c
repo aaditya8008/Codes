@@ -4,7 +4,7 @@
 struct stack{
     int size;
     int top;
-    int * arr;
+    char * arr;
 };
 int isempty(struct stack*s){
     if(s->top==-1){
@@ -16,6 +16,17 @@ int isempty(struct stack*s){
     
 
 }
+int pop(struct stack *s){
+    if(isempty(s)){
+    printf("Stack underflow:\n");
+    return 0;
+    }
+    printf("Removed Element:\n");
+    char temp=s->arr[s->top];
+s->top--;
+return temp;
+}
+
 int isfull(struct stack*s){
         if(s->top==s->size-1)
         return 1;
@@ -23,49 +34,44 @@ int isfull(struct stack*s){
         return 0;
 
     }
-int create(struct stack *s){
-    
-    if(isfull(s)){
-    printf("stack overflow:\n");
-    return 0;}
-    printf("Enter Elements:\n");
-for(int i=0;i<s->size;i++){
+char create(struct stack *s){
+  printf("Enter elements :\n");
+  for(int i=0;i<s->size;i++){
         s->top++;
-    scanf("%d",&s->arr[s->top]);
+    scanf("%s",&s->arr[s->top]);
     
-    }
+}}
+char pushed(struct stack *s,char x){
+  
+        s->top++;
+    s->arr[s->top]=x;
+    
 }
-int peek(struct stack *s){
-    int i;
-    printf("Enter element num:\n");
-    scanf("%d",&i);
-    if((s->top-i+1)<0){
-    printf("Invalid Index\n");
-    return 0;
+int paranthesis(struct stack * s){
+  struct stack*new=(struct stack*)malloc(sizeof(struct stack));
+  new->top=-1;
+  for(int i=0;i<s->size;i++){
+    if(s->arr[i]=='(')
+    pushed(new,'(');
+    else if(s->arr[i]==')'){
+if(isempty(new))
+return 0;
+pop(new);
+
     }
-
-    printf("%d",s->arr[s->top-i+1]);
-
+  }
+  if(isempty(new))
+return 1;
 }
-
-
-
 int main(){
-    struct stack*s=(struct stack*)malloc(sizeof(struct stack));
-     s->top=-1;
-    printf("Enter size :\n");
-    scanf("%d",&(s->size));
-    s->arr=(int*)malloc(s->size*sizeof(int));
-   create(s);
-    
-    printf("Elements are:\n");
-    for(int i=0;i<s->size;i++){
-        
-    printf("%d\n",s->arr[i]);
-    
-    }
-    realloc(s->arr,s->size+sizeof(int));
-    s->size++;
-    peek(s);
-
+  struct stack *s=(struct stack*)malloc(sizeof(struct stack));
+  s->top=-1;
+  printf("Enter size :\n");
+  scanf("%d",&s->size);
+s->arr=(char*)malloc(2*s->size*sizeof(char));
+create(s);
+if(paranthesis(s))
+printf("Good\n");
+else 
+printf("Check");
 }

@@ -20,17 +20,17 @@ n->next=NULL;
 return *head;
 
 }
-struct node*sepcreate(struct node*head,int i,struct node*curr){
+struct node*sepcreate(struct node**head,int i,struct node*curr){
 n=(struct node*)malloc(sizeof(struct node));
 n->data=(curr)->data;
 if(i==0){
-head=n;
+*head=n;
 prev=n;
 }
 prev->next=n;
 prev=n;
 n->next=NULL;
-return head;
+
 
 }
 
@@ -52,7 +52,7 @@ while(n!=NULL){
 ext=head;
 for(int i=0;ext!=NULL; ){
     if((ext->data)>0){
-    pos=sepcreate(pos,i,ext);
+    sepcreate(&pos,i,ext);
     i++;
     }
     ext=ext->next;
@@ -65,7 +65,7 @@ while(pos!=NULL){
 ext=head;
 for(int i=0;ext!=NULL; ){
     if((ext->data)<0){
-    neg=sepcreate(neg,i,ext);
+    sepcreate(&neg,i,ext);
     i++;
     }
     ext=ext->next;

@@ -63,7 +63,6 @@ printf("Enter second linked list :\n");
 for(int i=0;i<s;0)
 head2=create(head2,i);
 int  i=0;
-
 merge(&head1,&head2,&head,i++);
 while(head!=NULL){
     printf("%d\n",head->data);

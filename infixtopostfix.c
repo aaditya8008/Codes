@@ -7,11 +7,6 @@ int top;
 char *arr;
 
 }*s,*n;
-void *create(struct stack*s){
-s->top++;
-scanf("%s",&s->arr[s->top]);
-
-}
 
 int isfull(struct stack *x){
    x=(struct stack*)malloc(sizeof(struct stack));
@@ -99,16 +94,8 @@ return postfix;
 }
 
 
-
 int main(){
-s=(struct stack*)malloc(sizeof(struct stack));
-s->top=-1;
-printf("Enter size :\n");
-scanf("%d",&s->size);
-s->arr=(char*)malloc(sizeof(char)*s->size);
-for(int i=0;i<s->size;i++){
-    create(s);
-}
-printf("infix fix expression is :%s\n",s->arr);
-printf("Post fix expression is :%s\n",infixtopostfix(s->arr));
+char *infix="a-b";
+printf("Postfix is %s\n",infixtopostfix(infix));
+return 0;
 }

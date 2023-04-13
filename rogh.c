@@ -1,114 +1,73 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<string.h>
-struct stack{
-int size;
-int top;
-char *arr;
-
-}*s,*n;
-void *create(struct stack*s){
-s->top++;
-scanf("%s",&s->arr[s->top]);
-
-}
-
-int isfull(struct stack *x){
-   x=(struct stack*)malloc(sizeof(struct stack));
-   if(x==NULL)
-   return 1;
-   return 0;
-
-}
-int stacktop(struct stack *n){
-    return n->arr[n->top];
-}
-int isempty(struct stack *x){
-   
-   if(x->top==-1)
-   return 1;
-   return 0;
-
-}
-void push(char c,struct stack*sp){
-sp->top++;
-sp->arr[sp->top]=c;
-
-}
-char pop(struct stack*sp){
-    char x=sp->arr[sp->top];
-sp->top--;
-return x;
-}
-
-int precedence(char ch){
-if(ch=='*'||ch=='/')
-return 3;
-else if(ch=='+'||ch=='-')
-return 2;
+struct queue{
+int data;
+struct queue * next;
+}*q,*n;
+struct queue*f=NULL;
+struct queue*r=NULL;
+int isempty(struct queue *q){
+if(f==r)
+return 1;
 return 0;
+}
+int isfull(struct queue *q){
+struct queue *n=(struct queue*)malloc(sizeof(struct queue));
+if(n==NULL)
+return 1;
+return 0;
+}
+void enqueue(int i){
+   if(isfull(q)) {
+    printf("FULL\n");
+    return ;
+   }
+   struct queue *n=(struct queue*)malloc(sizeof(struct queue));
+scanf("%d",&n->data);
+n->next=NULL;
+if(f==NULL){
+    f=r=n;
+}
+else{
+r->next=n;
+r=n;}
+
+
 
 }
-int isoperator(char ch){
-    if(ch=='*'||ch=='/'||ch=='+'||ch=='-')
-    return 1;
-    return 0;
-}
-
-
-char *infixtopostfix(char *infix){
-    
-struct stack *sp=(struct stack*)malloc(sizeof(struct stack));
-
-sp->size=10;
-sp->top=-1;
-sp->arr=(char*)malloc(sizeof(char)*sp->size);
-
-char *postfix=(char*)malloc((strlen(infix)+1)*sizeof(char));
-int i=0;   // infix traversal
-int j=0;   // postfix traversal
-
-while(infix[i]!='\0'){
-
-    if(!isoperator(infix[i])){
-        postfix[j]=infix[i];
-        j++;i++;
-        
+int dequeue(struct queue *q){
+    if(isempty(q)){
+        printf("EMPTY\n");
+        return 0;
     }
-    else{
-        if(precedence(infix[i])>precedence(stacktop(sp))){
-            push(infix[i],sp);          //greater precedence
-            i++;
-
-        }
-        else{
-            postfix[j]=pop(sp);        //equal or greater precedence removed
-            j++;
-        }
+    n=f;
+    int x=f->data;
+    f=f->next;
+    free(n);
+return x;
 
     }
-}
-
-while(!isempty(sp)){
-
-    postfix[j]=pop(sp);
-    j++;
-}
-postfix[j]='\0';
-return postfix;
-}
-
 
 
 int main(){
-s=(struct stack*)malloc(sizeof(struct stack));
-s->top=-1;
-printf("Enter size :\n");
-scanf("%d",&s->size);
-s->arr=(char*)malloc(sizeof(char)*s->size);
-for(int i=0;i<s->size;i++){
-    create(s);
+    printf("Enter elements :\n");
+for(int i=0;i<5;i++)
+enqueue(10);
+n=f;
+printf("Original :\n");
+while(n!=NULL){
+    printf("%d\n",n->data);
+    n=n->next;
 }
-printf("infix fix expression is :%s\n",s->arr);
-printf("Post fix expression is :%s\n",infixtopostfix(s->arr));
+printf("After deque :\n");
+dequeue(q);
+n=f;
+while(n!=NULL){
+    printf("%d\n",n->data);
+    n=n->next;
+}
+
+return 0;
+
+
 }

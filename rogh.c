@@ -1,114 +1,74 @@
-#include <stdio.h>
-#include <stdlib.h>
-struct queue
-{
-    int data;
-    struct queue *next;
-} *q, *n;
-struct queue *f = NULL;
-struct queue *r = NULL;
-int isempty(struct queue *q)
-{
-    if (f == r)
-    {
-        printf("Empty \n");
-        return 1;
-    }
-    return 0;
+#include<stdio.h>
+#include<stdlib.h>
+struct stack{
+int data;
+struct stack *next;
+
+}*s,*n,*top,*prev,*curr,*next;
+
+int isfull(struct stack *top){
+n=(struct stack*)malloc(sizeof(struct stack));
+if(n==NULL)
+return 1;
+return 0;
+
 }
-int isfull(struct queue *q)
-{
-    n = (struct queue *)malloc(sizeof(struct queue));
-    if (n == NULL)
-        return 1;
-    return 0;
+int isempty(struct stack *top){
+
+if(top==NULL)
+return 1;
+return 0;
+
 }
-void enqueueE(struct queue *q)
-{
-    if (isfull(q))
-        return;
-    n = (struct queue *)malloc(sizeof(struct queue));
-    scanf("%d", &n->data);
-    if (f == NULL)
-    {
-        r = n;
-        f = n;
-    }
-    else
-    {
-        r->next = n;
-        n->next = NULL;
-        r = n;
-    }
-}
-void enqueueF(struct queue *q)
-{
-    if (isfull(q))
-        return;
-    n = (struct queue *)malloc(sizeof(struct queue));
-    scanf("%d", &n->data);
-    n->next = NULL;
-    if (f == NULL)
-    {
-        r = n;
-        f = n;
-    }
-    else
-    {
-        r->next = n;
-        
-        r = n;
-    }
-}
-int dequeueE(struct queue *q)
-{
-    int x;
-    if (isempty(q))
+
+struct stack * push(struct  stack** top){
+    if(isfull(*top)){
+        printf("FULL \n");
         return 0;
-    x = f->data;
-    n = f;
-    f = f->next;
-    free(n);
-    return x;
-}
-int dequeueF(struct queue *q)
-{
-    int x;
-    if (isempty(q))
-        return 0;
-    x = f->data;
-    n = f;
-    f = f->next;
-    free(n);
-    return x;
-}
-int main()
-{
-
-    int size;
-    printf("Enter size :\n");
-    scanf("%d", &size);
-
-    printf("Enter elements :\n");
-    for (int i = 0; i < size; i++)
-        enqueue(q);
-    printf("Elements  are :\n");
-    n = f;
-    while (n != NULL)
-    {
-        printf("enqueue :%d\n", n->data);
-        n = n->next;
     }
-    for (int i = 0; i < 3; i++)
-        printf("dequeue :%d\n", dequeue(q));
+n=(struct stack*)malloc(sizeof(struct stack));
+scanf("%d",&n->data);
+n->next=*top;
+*top=n;
 
-    printf("Enter elements :\n");
-    for (int i = 0; i < size; i++)
-        enqueue(q);
-    n = f;
-    while (n != NULL)
-    {
-        printf("enqueue :%d\n", n->data);
-        n = n->next;
-    }
+}
+
+
+
+struct stack *rev(struct stack ** top){
+curr=*top;
+prev=NULL;
+next=NULL;
+while(curr!=NULL){
+next=curr->next;
+curr->next=prev;
+prev=curr;
+curr=next;
+
+}
+*top=prev;
+}
+
+int main(){
+int size;
+printf("Enter size :\n");
+scanf("%d",&size);
+printf("Enter elements :\n");
+for(int i=0;i<size;i++){
+    push(&top);
+}
+n=top;
+printf("Original :\n");
+while(n!=NULL){
+    printf("%d\n",n->data);
+    n=n->next;
+}
+rev(&top);
+n=top;
+printf("Reversed :\n");
+while(n!=NULL){
+    printf("%d\n",n->data);
+    n=n->next;
+}
+
 }

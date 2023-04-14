@@ -23,25 +23,7 @@ int isfull(struct queue *q)
         return 1;
     return 0;
 }
-void enqueueE(struct queue *q)
-{
-    if (isfull(q))
-        return;
-    n = (struct queue *)malloc(sizeof(struct queue));
-    scanf("%d", &n->data);
-    if (f == NULL)
-    {
-        r = n;
-        f = n;
-    }
-    else
-    {
-        r->next = n;
-        n->next = NULL;
-        r = n;
-    }
-}
-void enqueueF(struct queue *q)
+void enqueue(struct queue *q)
 {
     if (isfull(q))
         return;
@@ -60,18 +42,7 @@ void enqueueF(struct queue *q)
         r = n;
     }
 }
-int dequeueE(struct queue *q)
-{
-    int x;
-    if (isempty(q))
-        return 0;
-    x = f->data;
-    n = f;
-    f = f->next;
-    free(n);
-    return x;
-}
-int dequeueF(struct queue *q)
+int dequeue(struct queue *q)
 {
     int x;
     if (isempty(q))

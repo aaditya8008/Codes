@@ -1,73 +1,56 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct queue{
-int data;
-struct queue * next;
+    int size;
+    int*arr;
+    int r;
+    int f;
 }*q,*n;
-struct queue*f=NULL;
-struct queue*r=NULL;
 int isempty(struct queue *q){
-if(f==r)
-return 1;
-return 0;
+    if(q->r==q->f){
+    
+    printf("Empty \n");
+    return 1;}
+    return 0;
 }
 int isfull(struct queue *q){
-struct queue *n=(struct queue*)malloc(sizeof(struct queue));
-if(n==NULL)
-return 1;
-return 0;
+    if((q->r+1)% q->size==q->f){       //1=2,2=3
+    printf("Full\n");
+    return 1;}
+    return 0;
 }
-void enqueue(int i){
-   if(isfull(q)) {
-    printf("FULL\n");
+void enqueue(struct queue* q){
+    if(isfull(q))
     return ;
-   }
-   struct queue *n=(struct queue*)malloc(sizeof(struct queue));
-scanf("%d",&n->data);
-n->next=NULL;
-if(f==NULL){
-    f=r=n;
-}
-else{
-r->next=n;
-r=n;}
-
-
+    q->r=(q->r+1)%q->size;
+    scanf("%d",&q->arr[q->r]);
 
 }
-int dequeue(struct queue *q){
-    if(isempty(q)){
-        printf("EMPTY\n");
-        return 0;
-    }
-    n=f;
-    int x=f->data;
-    f=f->next;
-    free(n);
+int dequeue(struct queue* q){
+    
+    if(isempty(q))
+    return 0;
+    q->f=(q->f+1)%q->size;
+int x=q->arr[q->f];
 return x;
 
-    }
-
-
+}
 int main(){
-    printf("Enter elements :\n");
-for(int i=0;i<5;i++)
-enqueue(10);
-n=f;
-printf("Original :\n");
-while(n!=NULL){
-    printf("%d\n",n->data);
-    n=n->next;
-}
-printf("After deque :\n");
+q=(struct queue*)malloc(sizeof(struct queue));
+printf("Enter size :\n");
+scanf("%d",&q->size);
+q->r=q->f=0;          //for full q=f
+q->arr==(int*)malloc(sizeof(int)*q->size);
+printf("Enter elements :\n");
+for(int i=0;i<q->size;i++)
+enqueue(q);
+printf("Elements  are :\n");
 dequeue(q);
-n=f;
-while(n!=NULL){
-    printf("%d\n",n->data);
-    n=n->next;
+while(q->f!=q->r){
+       q->f=(q->f+1)%q->size;
+    printf("%d\n",q->arr[q->f]);
+     
+
 }
-
-return 0;
-
 
 }

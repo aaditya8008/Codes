@@ -1,74 +1,68 @@
 #include<stdio.h>
 #include<stdlib.h>
-struct stack{
-int data;
-struct stack *next;
-
-}*s,*n,*top,*prev,*curr,*next;
-
-int isfull(struct stack *top){
-n=(struct stack*)malloc(sizeof(struct stack));
-if(n==NULL)
-return 1;
-return 0;
-
-}
-int isempty(struct stack *top){
-
-if(top==NULL)
-return 1;
-return 0;
-
-}
-
-struct stack * push(struct  stack** top){
-    if(isfull(*top)){
-        printf("FULL \n");
-        return 0;
-    }
-n=(struct stack*)malloc(sizeof(struct stack));
-scanf("%d",&n->data);
-n->next=*top;
-*top=n;
-
-}
-
-
-
-struct stack *rev(struct stack ** top){
-curr=*top;
-prev=NULL;
-next=NULL;
-while(curr!=NULL){
-next=curr->next;
-curr->next=prev;
-prev=curr;
-curr=next;
-
-}
-*top=prev;
-}
-
-int main(){
+struct queue{
 int size;
-printf("Enter size :\n");
-scanf("%d",&size);
-printf("Enter elements :\n");
-for(int i=0;i<size;i++){
-    push(&top);
+int f;
+int r;
+int *arr;
+
+}*q;
+int isfull(struct queue*q){
+    if((q->r+1)%q->size==q->size-1)
+    return 1;
+    return 0;
 }
-n=top;
-printf("Original :\n");
-while(n!=NULL){
-    printf("%d\n",n->data);
-    n=n->next;
+int isempty(struct queue*q){
+    if(q->r==q->f)
+    return 1;
+    return 0;
 }
-rev(&top);
-n=top;
-printf("Reversed :\n");
-while(n!=NULL){
-    printf("%d\n",n->data);
-    n=n->next;
+void enqueue(struct queue*q){
+    
+q->r=(q->r+1)%q->size;
+scanf("%d",&q->arr[q->r]);
+}
+int dequeue(struct queue*q){
+    int a=-1;
+    if(isempty(q))
+    return a ;
+    else{
+q->f=(q->f+1)%q->size;
+a=q->arr[q->f];
+    }
+    return a;
+
+}
+int main(){
+    q=(struct queue*)malloc(sizeof(struct queue));
+    printf("Enter Size :\n");
+    scanf("%d",&q->size);
+    q->f=q->r=-1;
+    q->arr=(int*)malloc(sizeof(struct queue)*q->size);
+    printf("Enter data:\n");
+    for(int i=0;i<q->size;i++)
+    enqueue(q);
+printf("Data is :\n");
+int x=q->f;
+while(x!=q->r){
+    x++;
+printf("%d\n",q->arr[x]);
+}
+    
+printf("Data dleted is :\n");
+for(int i=0;i<3;i++){
+    
+printf("%d\n",dequeue(q));
+
+}
+printf("Enter data:\n");
+    for(int i=0;i<3;i++)
+    enqueue(q);
+printf("Data is :\n");
+
+while(x!=q->r){
+    q->r++;
+printf("%d\n",q->arr[q->r]);
 }
 
 }

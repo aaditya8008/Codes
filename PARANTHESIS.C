@@ -1,90 +1,91 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct stack{
-    int top;
     int size;
     char *arr;
-}*top,*n;
-int isfull(struct stack *s){
-    n=(struct stack*)malloc(sizeof(struct stack));
-    if(s->top==s->size)
-    return 1;
-
-    return 0;
-}
-int isempty(struct stack *s){
-    if(s->top==-1)
-    return 1;
-    return 0;
+    int top;
+}*s,*n;
+int match(char a,char b){
+if(a=='{'&&b=='}')
+return 1;
+else if(a=='('&&b==')')
+return 1;
+else if(a=='['&&b==']')
+return 1;
+return 0;
 
 }
-int push(struct stack *n,char data){
-    if(isfull(n)){
-        printf("Full stack\n");
-    return 0;
-    }
-    
-n->top=n->top+1;
-n->arr[n->top]=data;
 
-}
-int pop(struct stack *s){
-    if(isempty(s)){
-    printf("Stack underflow:\n");
-    return 0;
+int isfull(struct stack*s){
+    if(s->top==s->size-1){
+        printf("FULL\n");
+        return 1;
     }
-    int temp=s->arr[s->top];
-s->top--;
-return temp;
-}
-struct stack * create(struct stack *s){
-    if(isfull(s)){
-        printf("Full stack\n");
     return 0;
+}
+int isempty(struct stack*s){
+    if(s->top==-1){
+        printf("EMPTY\n");
+        return 1;
     }
+    return 0;
+}
+void create(struct stack*s){
+    if(isfull(s))
+    return;
 s->top++;
 scanf("%s",&s->arr[s->top]);
-
+}
+void push(struct stack*s,char c){
+    if(isfull(s))
+    return;
+s->top++;
+s->arr[s->top]=c;
+}
+char pop(struct stack*s){
+    if(isfull(s))
+    return 0;
+s->top--;
+return s->arr[s->top+1];
 }
 int parenmatch(struct stack *s){
-     struct stack *n=(struct stack*)malloc(sizeof(struct stack));
-n->top=-1;
+    n=(struct stack*)malloc(sizeof(struct stack));
 n->size=s->size;
-n->arr=(char *)malloc(sizeof(char)*s->size);
-for(int i=0;i<s->arr[i]!='\0';i++){
-    printf("N- top=%d\n",n->top);
-if(s->arr[i]=='('||s->arr[i]=='{'||s->arr[i]=='['){
-    char ch=s->arr[i];
-push(n,ch);
-
-}
-
-else if(s->arr[i]==')'||s->arr[i]=='}'||s->arr[i]==']')
-if(s->arr[i]==)
+n->top=-1;
+n->arr=(char*)malloc(sizeof(char)*(n->size));
+    for(int i=0;s->arr[i]!='\0';i++){
+       
+        if(s->arr[i]=='('||s->arr[i]=='{'||s->arr[i]=='['){
+        push(n,s->arr[i]);
+        }
+else if(s->arr[i]==')'||s->arr[i]=='}'||s->arr[i]==']'){
+if(!(match(n->arr[n->top],s->arr[i])))
+return 0;
 pop(n);
+}
+ printf("%d\n",n->top);
 }
 if(isempty(n))
 return 1;
+else 
 return 0;
-}
-int main(){
-    struct stack *s=(struct stack*)malloc(sizeof(struct stack));
 
-printf("Enter Size :\n");
+}
+
+int main(){
+s=(struct stack*)malloc(sizeof(struct stack));
+printf("Enter size :\n");
 scanf("%d",&s->size);
 s->top=-1;
-s->arr=(char *)malloc(sizeof(char)*s->size);
-printf("Enter data :\n");
+s->arr=(char*)malloc(sizeof(char)*(s->size));
+printf("Enter Data :\n");
 for(int i=0;i<s->size;i++)
 create(s);
-printf("Data is :\n");
-
+printf("Value\n");
 printf("%s\n",s->arr);
-
 if(parenmatch(s))
 printf("Balanced\n");
-
 else
-printf("Un-balanced\n");
+printf("Un-Balanced\n");
 
 }

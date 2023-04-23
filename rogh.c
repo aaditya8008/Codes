@@ -13,11 +13,9 @@ int check(struct node *ex,int x,struct node *head){
     {if(n->data==x)
     return 1;
         n = n->next;
-    }
-   
-   
+    }  
 if(n->data==x)
-    return 1;
+return 1;
 return 0;
 
 }

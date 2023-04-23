@@ -5,21 +5,21 @@ struct node
     int data;
     struct node *next;
     struct node *prev;
-} *s, *n, *prev, *head, *tail, *headrev, *p, *c, *n, *ex,*d;
+} *s, *n, *prev, *head, *tail, *headrev, *p, *c, *n, *ex, *d;
 
-int check(int arr[],int size,int x){
-   
-for(int i=0;i<size;i++){
- 
-if(arr[i]==x){
-return 1;
+int check(int arr[], int size, int x)
+{
 
+    for (int i = 0; i < size; i++)
+    {
+
+        if (arr[i] == x)
+        {
+            return 1;
+        }
+    }
+    return 0;
 }
-
-}
-return 0;
-}
-
 
 void create(struct node **head, int i, int size)
 {
@@ -42,43 +42,45 @@ void create(struct node **head, int i, int size)
     if (i == size - 1)
         n->next = *head;
 }
-struct node* deldup(struct node *head,int size)
+struct node *deldup(struct node *head, int size)
 {
-    ex= head;
-    
-    int j=0;
+    ex = head;
+    int j = 0;
     int arr[size];
-    
-    while (ex->next!= head){
-        
- if(check(arr,size,ex->data)){
-d=ex;
-ex->next->prev=ex->prev;
-ex->prev->next=ex->next;
-ex=ex->prev;
-free(d);
- } 
- else{ 
-arr[j]=ex->data;
-j++;
- }
+    while (ex->next != head)
+    {
 
- ex= ex->next;
+        if (check(arr, size, ex->data))
+        {
+            d = ex;
+            ex->next->prev = ex->prev;
+            ex->prev->next = ex->next;
+            ex = ex->prev;
+            free(d);
+        }
+        else
+        {
+            arr[j] = ex->data;
+            j++;
+        }
+
+        ex = ex->next;
     }
-    if(check(arr,size,ex->data)){
-d=ex;
-ex->next->prev=ex->prev;
-ex->prev->next=ex->next;
-ex=ex->prev;
-free(d);
- } 
- else{ 
-arr[j]=ex->data;
-j++;
- }
-   
-return head;
-    
+    if (check(arr, size, ex->data))
+    {
+        d = ex;
+        ex->next->prev = ex->prev;
+        ex->prev->next = ex->next;
+        ex = ex->prev;
+        free(d);
+    }
+    else
+    {
+        arr[j] = ex->data;
+        j++;
+    }
+
+    return head;
 }
 void print(struct node *head)
 {
@@ -100,12 +102,9 @@ int count(struct node *head)
         n = n->next;
     }
     count++;
-   
+
     return count;
 }
-
-
-
 
 int main()
 {
@@ -125,8 +124,7 @@ int main()
     print(head);
     count(head);
 
-     printf("Duplicates deleted :\n");
-    head=deldup(head,size);
+    printf("Duplicates deleted :\n");
+    head = deldup(head, size);
     print(head);
-    count(head);
-}
+    count(head);}

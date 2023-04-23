@@ -1,134 +1,128 @@
 #include <stdio.h>
-#include <stdlib.h>
-struct node
-{
+#include<stdlib.h>
+struct node{
     int data;
     struct node *next;
     struct node *prev;
-} *s, *n, *prev, *head, *tail, *headrev, *p, *c, *n, *ex,*d;
-
-int check(struct node *ex,int x,struct node *head){
-     n = ex->next;
-    while (n->next != head)
-    {if(n->data==x)
-    return 1;
-        n = n->next;
-    }  
-if(n->data==x)
-return 1;
-return 0;
-
-}
-
-
-
-
-void create(struct node **head, int i, int size)
-{
-    n = (struct node *)malloc(sizeof(struct node));
-    scanf("%d", &n->data);
-    if (*head == NULL)
-    {
-        *head = n;
-        n->prev = NULL;
-        n->next = NULL;
-        prev = *head;
+}*head,*n,*extra,*tail,*curr,*prev,*next;
+struct node *create(struct node *head,int i,int size){
+    n=(struct node*)malloc(sizeof(struct node));
+    scanf("%d",&n->data);
+    if(i==0){
+        head=n;
+        extra=n;
+        n->prev=NULL;
+        n->next=NULL;
     }
-    else
-    {
-        n->prev = prev;
-        prev->next = n;
-        n->next = NULL;
-        prev = n;
+    else{
+        extra->next=n;
+        n->next=NULL;
+        n->prev=extra;
+        extra=n;
+        if(i=size-1)
+        tail=n;
     }
-    if (i == size - 1)
-        n->next = *head;
+    return head;
 }
-struct node* deldup(struct node *head,int size)
-{
-    ex= head;
+void print(struct node* head){
+    n=head;
+    printf("From head :\n");
+    while(n!=NULL){
+        printf("%d\n",n->data);
+        n=n->next;
+    }
+   n=tail;
+    printf("From tail:\n");
+    while(n!=NULL){
+        printf("%d\n",n->data);
+        n=n->prev;
+    }
     
-    int j=0;
-    int arr[size];
+}
+void *insert(struct node**head){
+    int x;
+    printf("Enter add +1 node:\n");
+    scanf("%d",&x);
+    n=(struct node*)malloc(sizeof(struct node));
+    printf("Enter new node:\n");
+    scanf("%d",&n->data);
+    curr=*head;
+    next=curr->next;
+    while(curr->data!=x&&curr!=NULL){
+        next=next->next;
+        curr=curr->next;
+    }
+       n->prev=curr;
+       curr->next=n;
+       next->prev=n;
+       n->next=next;
+       n=*head;
+    printf("Entered after node :\n");
+    while(n!=NULL){
+        printf("%d\n",n->data);
+        n=n->next;
+    }
     
-    while (ex->next!= head){
+    
+    
+    
+}
+void *insertbeg(struct node**head){
+    
+    n=(struct node*)malloc(sizeof(struct node));
+    printf("Enter big node:\n");
+    scanf("%d",&n->data);
+    n->next=*head;
+    (*head)->prev=n;
+    n->prev=NULL;
+    *head=n;
+}
+void del(struct node **head){
+    int x;
+    printf("Enter delete  -1 node:\n");
+    scanf("%d",&x);
+    n=*head;
+    curr=*head;
+    while(curr->next->data!=x){
+        prev=curr;
+        curr=curr->next;
+    }
+    if(curr->next->data==x){
+        prev->next=curr->next;
+        free(curr);
         
- if(check(ex,ex->data,head)){
-d=ex;
-ex->next->prev=ex->prev;
-ex->prev->next=ex->next;
-ex=ex->prev;
-free(d);
- } 
- else{ 
-arr[j]=ex->data;
-j++;
- }
-
- ex= ex->next;
     }
-    if(check(ex,ex->data,head)){
-d=ex;
-ex->next->prev=ex->prev;
-ex->prev->next=ex->next;
-ex=ex->prev;
-free(d);
- } 
- else{ 
-arr[j]=ex->data;
-j++;
- }
-   
-return head;
+    else{
+        printf("No node\n");
+    }
+    
     
 }
-void print(struct node *head)
-{
-    n = head;
-    while (n->next != head)
-    {
-        printf("%d\n", n->data);
-        n = n->next;
-    }
-    printf("%d\n", n->data);
-}
-int count(struct node *head)
-{
-    n = head;
-    int count = 0;
-    while (n->next != head)
-    {
-        count++;
-        n = n->next;
-    }
-    count++;
-   
-    return count;
-}
-
-
-
-
 int main()
 {
-    int size;
-
-    printf("Enter size :\n");
-    scanf("%d", &size);
-    printf("Enter data :\n");
-    head = NULL;
-
-    for (int i = 0; i < size; i++)
-    {
-        create(&head, i, size);
+    int x;
+    printf("Enter size:\n");
+    scanf("%d",&x);
+    printf("Enter Data:\n");
+    for(int i=0;i<x;i++){
+        head=create(head,i,x);
     }
-    n = head;
-    printf("Data :\n");
     print(head);
-    count(head);
-
-     printf("Duplicates deleted :\n");
-    head=deldup(head,size);
-    print(head);
-    count(head);
+    del(&head);
+    n=head;
+    printf("Deleted before node :\n");
+    while(n!=NULL){
+        printf("%d\n",n->data);
+        n=n->next;
+    }
+    insertbeg(&head);
+    n=head;
+    printf("Inserted at start :\n");
+    while(n!=NULL){
+        printf("%d\n",n->data);
+        n=n->next;
+    }
+    insert (&head);
+    
+    return 0;
 }

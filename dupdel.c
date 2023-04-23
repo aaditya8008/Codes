@@ -7,22 +7,18 @@ struct node
     struct node *prev;
 } *s, *n, *prev, *head, *tail, *headrev, *p, *c, *n, *ex,*d;
 
-int check(struct node *ex,int x,struct node *head){
-     n = ex->next;
-    while (n->next != head)
-    {if(n->data==x)
-    return 1;
-        n = n->next;
-    }
+int check(int arr[],int size,int x){
    
-   
-if(n->data==x)
-    return 1;
-return 0;
+for(int i=0;i<size;i++){
+ 
+if(arr[i]==x){
+return 1;
 
 }
 
-
+}
+return 0;
+}
 
 
 void create(struct node **head, int i, int size)
@@ -55,7 +51,7 @@ struct node* deldup(struct node *head,int size)
     
     while (ex->next!= head){
         
- if(check(ex,ex->data,head)){
+ if(check(arr,size,ex->data)){
 d=ex;
 ex->next->prev=ex->prev;
 ex->prev->next=ex->next;
@@ -69,7 +65,7 @@ j++;
 
  ex= ex->next;
     }
-    if(check(ex,ex->data,head)){
+    if(check(arr,size,ex->data)){
 d=ex;
 ex->next->prev=ex->prev;
 ex->prev->next=ex->next;

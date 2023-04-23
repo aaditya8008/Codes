@@ -62,7 +62,7 @@ p=n=NULL;
 c=head;
 head=rev(p,c,n);
 n=head;
-printf("Data :\n");
+printf("Reversed Data :\n");
 while(n!=NULL){
     printf("%d\n",n->data);
     n=n->next;

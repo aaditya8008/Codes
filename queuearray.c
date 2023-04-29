@@ -50,6 +50,7 @@ printf("Enter  data:\n");
 for(int i=0;i<q->size;i++){
     enqueue(q,i);
 }
+printf("Dequeued : %d\n",dequeue(q));
 while(q->f<q->size-1){
     q->f++;
 printf("%d\n",q->arr[q->f]);

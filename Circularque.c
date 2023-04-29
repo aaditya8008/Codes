@@ -7,7 +7,7 @@ typedef struct queue{
     int r;
 }Q;
 int isfull(Q*q){
-if(q->r==q->size-1)
+if((q->r+1)%q->size==q->f)
 return 1;
 return 0;
 }
@@ -21,25 +21,23 @@ if(isfull(q)){
     printf("Over Flow\n");
     return ;
 }
-q->r++;
+q->r=(q->r+1)%q->size;
 scanf("%d",&q->arr[q->r]);
 if(q->f==-1)
 q->f=q->r;
 return;
-
 }
 int dequeue(Q*q){
-if(isempty(q)){
     int x=q->arr[q->f];
-q->f++;
+if(isempty(q)){
+    
 printf("Under Flow\n");
 return x;   
 }
-int x=q->arr[q->f];
-q->f++;
+
+q->f=(q->f+1)%q->size;
 
 return x;
-
 }
 void print(Q*q){
 int f=q->f;
@@ -50,7 +48,6 @@ printf("%d\n",q->arr[i]);
 printf("From Rear :\n");
 for(int i=r;i>=f;i--)
 printf("%d\n",q->arr[i]);
-
 }
 
 int main(){
@@ -64,14 +61,10 @@ printf("Enter data:\n");
 for(int i=0;i<=q->size-1;i++)
 enqueue(q);
 print(q);
-dequeue(q);
-print(q);
-dequeue(q);
-dequeue(q);
-dequeue(q);
-dequeue(q);
-print(q);
+for(int i=0;i<=q->size-1;i++)
+printf("Dqueued :%d\n",dequeue(q));
 printf("Re-Enter data:\n");
 for(int i=0;i<=q->size-1;i++)
-enqueue(q);
+enqueue(q)  ;
+print(q);
 }

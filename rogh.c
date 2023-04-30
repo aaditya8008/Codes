@@ -1,63 +1,121 @@
-#include<stdio.h>
-#include<stdlib.h>
-struct queue{
-    int data;
-    struct queue*next;
-}*q,*n;
-struct queue *r=NULL;
-struct queue *f=NULL;
-int isfull(struct queue*q){
-    n=(struct queue* )malloc(sizeof(struct queue));
-    if(n==NULL)
-    return 1;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+struct stack
+{
+    int size;
+    char *arr;
+    int top;
+} *s, *n, *infix, *postfix;
+int isfull(struct stack *s)
+{
+    if (s->top == s->size - 1)
+    {
+        printf("FULL\n");
+        return 1;
+    }
     return 0;
 }
-
-int isempty(struct queue*q){
-    if(r==f)
-    return 1;
+int isempty(struct stack *s)
+{
+    if (s->top == -1)
+    {
+        printf("EMPTY\n");
+        return 1;
+    }
     return 0;
 }
-void enqueue(struct queue*q){
-if(isfull((q))){
-    printf("Over Full\n");
-return ;
+void create(struct stack *s)
+{
+    if (isfull(s))
+        return;
+    s->top++;
+    scanf("%s", &s->arr[s->top]);
 }
-n=(struct queue* )malloc(sizeof(struct queue));
-scanf("%d",&n->data);
+void push(struct stack *s, char c)
+{
+    if (isfull(s))
+        return;
+    s->top++;
+    s->arr[s->top] = c;
+}
+char pop(struct stack *s)
+{
+    if (isfull(s))
+        return 0;
+    s->top--;
+    return s->arr[s->top + 1];
+}
+int precedence(char c){
+if(c=='^')
+return 3;
+else if(c=='*'||c=='/')
+return 2;
+else if(c=='+'||c=='-')
+return 1;
+return 0;
+}
+int operator(char c){
+if(c=='^'||c=='*'||c=='/'||c=='+'||c=='-')
+return 1;
+return 0;
+}
+char * infixtopost(char *infix){
+n=(struct stack*)malloc(sizeof(struct stack));
+n->arr=(char*)malloc(sizeof(char));
+n->size=100;
+n->top=-1;
+char *postfix=(char*)malloc(sizeof(char)*(strlen(infix)+1));
+int i=0,j=0;
+while(infix[i]!='\0'){
+if(!operator(infix[i])){
+    postfix[j]=infix[i];
+    i++;j++;
+}
+else if(infix[i]=='('){
+    push(n,infix[i]);
+    i++;
+}
+else if(infix[i]==')'){
+   while(n->top!='('){
+postfix[j]=n->top;
+j++;
+pop(n);
 
-n->next=NULL;
-if(f==NULL)
-f=r=n;
+   }pop(n);
+}
 else{
-    r->next=n;
-r=n;
+if(precedence(infix[i])>precedence(n->arr[n->top])){
+    push(n,infix[i]);
+    i++;
 }
-}
-void dequeue(struct queue*q){
-n=f;
-int x=f->data;
-f=f->next;
-free(n);
-}
-void print(struct queue*q){
-n=f;
-printf("DATA :\n");
-while(n!=NULL){
-    printf("%d\n",n->data);
-    n=n->next;
+
+else{
+    postfix[j]=pop(n);
+    j++;
 }
 
 }
-int main(){
-int size;
-printf("Enter size:\n");
-scanf("%d",&size);
-printf("Enter Data:\n");
-for(int i=0;i<size;i++)
-enqueue(q);
-print(q);
-dequeue(q);
-print(q);
 
+
+}
+if(!isempty(n)){
+    postfix[j]=pop(n);
+    j++;
+}
+return postfix;
+}
+int main()
+{
+    int size;
+    printf("Enter size :\n");
+    scanf("%d", &size);
+    char infix[size];
+    printf("Enter data :\n");
+    scanf("%s", infix);
+
+    printf("Data is :\n");
+    printf("%s\n", infix);
+    printf("Post Fix expression is :\n");
+    printf("%s", infixtopost(infix));
 }

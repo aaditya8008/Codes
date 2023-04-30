@@ -84,6 +84,19 @@ char *infixtopostfix(char *infix)
             i++;
             j++;
         }
+        else if(infix[i]=='('){
+            push(n, infix[i]);
+                i++;
+        }
+         else if(infix[i]==')'){
+   
+          while(n->top!='('){
+            postfix[j++]=n->top;
+            pop(n);
+          }
+         pop(n);
+         }
+
         else
         {
 

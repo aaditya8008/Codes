@@ -35,7 +35,8 @@
   ],
   "C_Cpp_Runner.useAddressSanitizer": false,
   "files.associations": {
-    "PARANTHESIS.C": "cpp"
+    "PARANTHESIS.C": "cpp",
+    "fibonAKKI.C": "cpp"
   },
   "C_Cpp_Runner.showCompilationTime": false
 }

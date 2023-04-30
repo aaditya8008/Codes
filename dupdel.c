@@ -1,130 +1,127 @@
-#include <stdio.h>
-#include <stdlib.h>
-struct node
-{
-    int data;
-    struct node *next;
-    struct node *prev;
-} *s, *n, *prev, *head, *tail, *headrev, *p, *c, *n, *ex, *d;
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+int data;
+struct node *next;
 
-int check(int arr[], int size, int x)
-{
+}*n,*prev,*s,*head,*new,*temp,*head1,*head2,*curr,*next;
+void print(struct node *head){
+n=head;
+printf("From front :\n");
+do{
+    printf("%d\n",n->data);
+    n=n->next;
+}while(n!=head);
+}
+void create(struct node **head){
+n=(struct node *)malloc(sizeof(struct node));
+scanf("%d",&n->data);
+if (*head==NULL){
+    *head=n;
+    n->next=NULL;
+    prev=n;
+}
+else{
+prev->next=n;
+n->next=*head;
+prev=n;
 
-    for (int i = 0; i < size; i++)
-    {
-
-        if (arr[i] == x)
-        {
-            return 1;
-        }
-    }
-    return 0;
 }
 
-void create(struct node **head, int i, int size)
-{
-    n = (struct node *)malloc(sizeof(struct node));
-    scanf("%d", &n->data);
-    if (*head == NULL)
-    {
-        *head = n;
-        n->prev = NULL;
-        n->next = NULL;
-        prev = *head;
-    }
-    else
-    {
-        n->prev = prev;
-        prev->next = n;
-        n->next = NULL;
-        prev = n;
-    }
-    if (i == size - 1)
-        n->next = *head;
 }
-struct node *deldup(struct node *head, int size)
-{
-    ex = head;
-    int j = 0;
-    int arr[size];
-    while (ex->next != head)
-    {
+void add(struct node **head){
+n=(struct node *)malloc(sizeof(struct node));
+printf("Enter new data:\n");
+scanf("%d",&n->data);
+temp=*head;
 
-        if (check(arr, size, ex->data))
-        {
-            d = ex;
-            ex->next->prev = ex->prev;
-            ex->prev->next = ex->next;
-            ex = ex->prev;
-            free(d);
-        }
-        else
-        {
-            arr[j] = ex->data;
-            j++;
-        }
-
-        ex = ex->next;
-    }
-    if (check(arr, size, ex->data))
-    {
-        d = ex;
-        ex->next->prev = ex->prev;
-        ex->prev->next = ex->next;
-        ex = ex->prev;
-        free(d);
-    }
-    else
-    {
-        arr[j] = ex->data;
-        j++;
-    }
-
-    return head;
+while(temp->next!=*head){
+    temp=temp->next;
 }
-void print(struct node *head)
-{
-    n = head;
-    while (n->next != head)
-    {
-        printf("%d\n", n->data);
-        n = n->next;
-    }
-    printf("%d\n", n->data);
+n->next=temp->next;
+temp->next=n;
+*head=n;
 }
-int count(struct node *head)
-{
-    n = head;
-    int count = 0;
-    while (n->next != head)
-    {
-        count++;
-        n = n->next;
-    }
-    count++;
+void addl(struct node **head){
+n=(struct node *)malloc(sizeof(struct node));
+printf("Enter new data:\n");
+scanf("%d",&n->data);
+temp=*head;
 
-    return count;
+while(temp->next!=*head){
+    temp=temp->next;
+}
+n->next=temp->next;
+temp->next=n;
+
+}
+void del(struct node**head){
+printf("Enter value to be deleted :\n");
+int x;
+scanf("%d",&x);
+curr=*head;
+next=curr->next;
+while(next->data!=x){
+    curr=curr->next;
+    next=next->next;
+}
+temp=next;
+curr->next=next->next;
+free(temp);
+
 }
 
-int main()
-{
-    int size;
 
-    printf("Enter size :\n");
-    scanf("%d", &size);
-    printf("Enter data :\n");
-    head = NULL;
 
-    for (int i = 0; i < size; i++)
-    {
-        create(&head, i, size);
-    }
-    n = head;
-    printf("Data :\n");
-    print(head);
-    count(head);
+int check(int arr[],int n,int x){    
+for(int i=0;i<x;i++){
+    if(arr[i]==n)
+    return 1;
+}
+return 0;   //check(arr,n->data,x)
 
-    printf("Duplicates deleted :\n");
-    head = deldup(head, size);
-    print(head);
-    count(head);}
+}
+
+
+
+void dupdel(struct node **head,int x){
+    int k=0;
+    int arr[x];
+n=*head;
+curr=*head;
+
+do{
+    
+if(check(arr,n->data,x)){
+curr=*head;
+next=curr->next;
+while(next->data!=n->data){
+    curr=curr->next;
+    next=next->next;
+}
+temp=next;
+curr->next=next->next;
+free(temp);
+}
+else{
+arr[k]=n->data;
+k++;
+}
+curr=curr->next;
+n=n->next;
+}while(n!=*head);
+
+}
+
+
+
+int main(){
+int x;
+printf("Enter data:\n");
+scanf("%d",&x);
+for(int i=0;i<x;i++)
+create(&head);
+printf("Deleted is:\n");
+dupdel(&head,x);
+print(head);
+}

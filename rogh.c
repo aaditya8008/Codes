@@ -103,6 +103,7 @@ if(!isempty(n)){
     postfix[j]=pop(n);
     j++;
 }
+postfix[j]='\0';
 return postfix;
 }
 int main()

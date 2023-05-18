@@ -6,7 +6,7 @@ struct node
     int data;
     struct node *rnext;
     struct node *lnext;
-} *n, *prev, *extra,*pred;
+} *n, *prev, *extra;
 
 struct node *create(struct node *n)
 {
@@ -17,38 +17,38 @@ struct node *create(struct node *n)
     return n;
 }
 
-struct node *inorderpred(struct node *n){
-n=n->lnext;
-while(n->rnext!=NULL)
-n=n->rnext;
-return n;
-
-
-}
-
-
-struct node * delete(struct node *n, int key){
-if(n==NULL)
-return NULL;
-if(n->rnext==NULL&&n->lnext==NULL){
-free(n);
-return NULL;}
-     if (key > n->data)
+int insert(struct node *n, int key)
+{
+    if(n->data==key){
+        printf("Duplicate \n");
+        return 0;
+    }
+    if (n->lnext == NULL && key < n->data)
     {
-         n->rnext=delete (n->rnext, key);
+        printf("Enter confirm new node:\n");
+        struct node *new = create(extra);
+
+        n->lnext = new;
+
+        return new->data;
+    }
+    if (n->rnext == NULL && key > n->data)
+    {
+        printf("Enter confirm new node:\n");
+        struct node *new = create(extra);
+        n->rnext = new;
+        return new->data;
+    }
+
+    else if (key > n->data)
+    {
+        insert(n->rnext, key);
     }
     else if (key < n->data)
     {
-       n->lnext= delete (n->lnext, key);
+        insert(n->lnext, key);
     }
-    else{
-        pred=inorderpred(n);
-        n->data=pred->data;
-        n->lnext= delete(n->lnext,pred->data);
-    }
-    return n;
 }
-
 void inorder(struct node *n)
 {
     if (n == NULL)
@@ -75,13 +75,11 @@ int main()
     int key;
     printf("Enter key :\n");
     scanf("%d", &key);
-
-   
     n = root;
     inorder(n);
     printf("\n");
     n = root;
-    delete (n, key);
+    insert(n, key);
     n = root;
     inorder(n);
 }

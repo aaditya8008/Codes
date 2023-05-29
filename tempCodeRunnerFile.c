@@ -1,9 +1,9 @@
-void print(struct node *n){
-    
+void inorder(struct node *n)
+{
+    if (n == NULL)
+        return;
 
-while(n!=NULL){
-   
-printf("%s\t%d\n",n->name,n->rollno);
- n=n->next;
-}
+    inorder(n->lnext);
+    printf("%d ", n->data);
+    inorder(n->rnext);
 }

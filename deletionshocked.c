@@ -118,16 +118,9 @@ return NULL;
         n->lnext=delete(n->lnext, key);
     }
 else{
-if(n->lnext!=NULL){
 p=pred(n);
-p=succ(n);
 n->data=p->data;
-n->lnext=delete(n->lnext,p->data);}
-else if(n->rnext!=NULL){
-p=succ(n);
-n->data=p->data;
-n->rnext=delete(n->rnext,p->data);
-}
+n->lnext=delete(n->lnext,p->data);
 }
     return n;
 }

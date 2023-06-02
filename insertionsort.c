@@ -9,23 +9,20 @@ void printarr(int arr[], int size)
     }
     return;
 }
-void selectionsort(int *arr, int size)
+void insertionsort(int *arr, int size)
 {
-    int max;
-    for (int i = 0; i < size - 1; i++)
+    int min;
+    int j;
+    for (int i = 0; i < size; i++)
     {
-        max = i;
-        for (int j = i + 1; j < size; j++)
+        int key = arr[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key)    //sorted portion so compared from end.
         {
-            if (arr[j] > arr[max])
-                max = j;
+            arr[j + 1] = arr[j];
+            j = j - 1;
         }
-        if (max != i)
-        {
-            int temp = arr[i];
-            arr[i] = arr[max];
-            arr[max] = temp;
-        }
+        arr[j + 1] = key;
     }
 
     return;
@@ -42,6 +39,6 @@ int main()
         scanf("%d", &arr[i]);
     }
 
-    selectionsort(arr, size);
+    insertionsort(arr, size);
     printarr(arr, size);
 }

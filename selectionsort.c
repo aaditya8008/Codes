@@ -11,20 +11,20 @@ void printarr(int arr[], int size)
 }
 void selectionsort(int *arr, int size)
 {
-    int max;
+    int min;
     for (int i = 0; i < size - 1; i++)
     {
-        max = i;
+        min = i;
         for (int j = i + 1; j < size; j++)
         {
-            if (arr[j] > arr[max])
-                max = j;
+            if (arr[j] < arr[min])
+                min = j;
         }
-        if (max != i)
+        if (min != i)
         {
             int temp = arr[i];
-            arr[i] = arr[max];
-            arr[max] = temp;
+            arr[i] = arr[min];
+            arr[min] = temp;
         }
     }
 

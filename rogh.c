@@ -5,7 +5,7 @@ struct node
     int data;
     struct node *rnext;
     struct node *lnext;
-} *n, *root, *p1, *p2, *p3, *p4, *extra, *s, *p,*prev;
+} *n, *root, *p1, *p2, *p3, *p4, *extra, *s, *p, *prev;
 
 struct node *create(int x)
 {
@@ -15,121 +15,42 @@ struct node *create(int x)
     n->rnext = NULL;
     return n;
 }
-
-struct node *binarysearch(struct node *n, int key)
+int height(struct node *n)
 {
     if (n == NULL)
-    {
-        printf("Not Found");
-        return NULL;
-    }
-    else if (n->data == key)
-    {
-        return n;
-    }
-
-    else if (n->data < key)
-    {
-        binarysearch(n->rnext, key);
-    }
-    else if (n->data > key)
-    {
-        binarysearch(n->lnext, key);
-    }
+        return 0;
+    int lheight = height(n->lnext);
+    int rheight = height(n->rnext);
+    if (lheight > rheight)
+        return (lheight + 1);
+    else
+        return (rheight + 1);
 }
-void inorder(struct node *n)
+void printcurrentlevel(struct node *n, int level)
 {
     if (n == NULL)
         return;
-    inorder(n->lnext);
-    printf("%d ", n->data);
-    inorder(n->rnext);
-}
-struct node *insert(struct node *n, int key)
-{
+    if (level == 1)
+    {
+        printf("%d ", n->data);
+    }
+    else if (level > 1)
+    {
+        printcurrentlevel(n->lnext, level - 1);
+        printcurrentlevel(n->rnext, level - 1);
+    }
 
-    if (n == NULL)
-    {
-        printf("Can,t Insert");
-        return NULL;
-    }
-    else if (n->data == key)
-    {
-        printf("Duplicte Key");
-        return NULL;
-    }
-    else if (n->lnext == NULL && key < n->data)
-    {
-        extra = create(key);
-        n->lnext = extra;
-        return n;
-    }
-    else if (n->rnext == NULL && key > n->data)
-    {
-        extra = create(key);
-        n->rnext = extra;
-        return n;
-    }
-    else if (n->data < key)
-    {
-        insert(n->rnext, key);
-    }
-    else if (n->data > key)
-    {
-        insert(n->lnext, key);
-    }
-    return root;
-}
-struct node *succ(struct node *n)
-{
-    extra = n;
-    extra = extra->rnext;
-    while (extra->lnext != NULL)
-    {
-        extra = extra->lnext;
-    }
-    printf("\nSuccesor is %d\n", extra->data);
-    return extra;
-}
-struct node *pred(struct node *n)
-{
-    n=n->lnext;
-while(n->rnext!=NULL)
-n=n->rnext;
-return n;
+   
 }
 
-struct node *delete(struct node *n, int key)
-{if (n == NULL)
+void printlevelorder(struct node *n)
+{
+    int h = height(n);
+    for (int i = 1; i <= h; i++)
     {
-        printf("Not Found");
-        return NULL;
+        printcurrentlevel(n, i);
+         printf("\n");
     }
-   if(n->rnext==NULL&&n->lnext==NULL){
-free(n);
-return NULL;
-   }
-    else if (n->data < key)
-    {
-       n->rnext= delete(n->rnext, key);
-    }
-    else if (n->data > key)
-    {
-        n->lnext=delete(n->lnext, key);
-    }
-else{
-if(n->lnext!=NULL){
-p=pred(n);
-p=succ(n);
-n->data=p->data;
-n->lnext=delete(n->lnext,p->data);}
-else if(n->rnext!=NULL){
-p=succ(n);
-n->data=p->data;
-n->rnext=delete(n->rnext,p->data);
-}
-}
-    return n;
 }
 
 int main()
@@ -145,25 +66,5 @@ int main()
     p1->lnext = p3;
     p1->rnext = p4;
     n = root;
-    printf("Inorder:\n");
-    inorder(n);
-    printf("\nEnter Key :\n");
-    int key;
-    scanf("%d", &key);
-    n = root;
-    printf("Found : %d", binarysearch(root, key)->data);
-    printf("\nEnter Key to insert :\n");
-    scanf("%d", &key);
-    n = root;
-    root = insert(n, key);
-    n = root;
-    printf("Inserted:\n");
-    inorder(n);
-    printf("\nEnter Key to delete :\n");
-    scanf("%d", &key);
-    n = root;
-   delete (n, key);
-    printf("Deleted:\n");
-    n = root;
-    inorder(n);
+    printlevelorder(n);
 }

@@ -77,7 +77,7 @@ char *infixtopostfix(char *infix)
 
     while (infix[i] != '\0')
     {
-printf("%s",postfix);
+
         if (!isoperator(infix[i])&&infix[i]!='('&&infix[i]!=')')
         {
             postfix[j] = infix[i];
@@ -91,12 +91,12 @@ printf("%s",postfix);
          else if(infix[i]==')'){
    
           while(n->arr[n->top]!='('){
-            char c=pop(n);
-            postfix[j++]=c;
-            printf("Popped :%c",c);
+
+            postfix[j++]= pop(n);
+
           }
-         char c=pop(n);
-          printf("Popped :%c",c);
+         pop(n);
+         
           i++;
          }
 

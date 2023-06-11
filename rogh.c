@@ -1,63 +1,140 @@
 #include <stdio.h>
 #include <stdlib.h>
-void create(int *arr, int size)
+#include <string.h>
+struct stack
 {
-    printf("Enter %d Elements :\n", size);
-    for (int i = 0; i < size; i++)
+    int size;
+    char *arr;
+    int top;
+} *s, *n, *infix, *postfix;
+int isfull(struct stack *s)
+{
+    if (s->top == s->size - 1)
     {
-        scanf("%d", &arr[i]);
+        printf("FULL\n");
+        return 1;
     }
-    return;
+    return 0;
 }
-void print(int arr[], int size)
+int isempty(struct stack *s)
 {
+    if (s->top == -1)
+    {
+        printf("EMPTY\n");
+        return 1;
+    }
+    return 0;
+}
+void create(struct stack *s)
+{
+    if (isfull(s))
+        return;
+    s->top++;
+    scanf("%s", &s->arr[s->top]);
+}
+void push(struct stack *s, char c)
+{
+    if (isfull(s))
+        return;
+    s->top++;
+    s->arr[s->top] = c;
+}
+char pop(struct stack *s)
+{
+    if (isfull(s))
+        return 0;
+    s->top--;
+    return s->arr[s->top + 1];
+}
+int precedence(char c)
+{
+    if (c == '^')
+        return 3;
+    else if (c == '*' || c == '/')
+        return 2;
+    else if (c == '+' || c == '-')
+        return 1;
+    return 0;
+}
+int isoperator(char c)
+{
+    if ((c == '^' || c == '*' || c == '/' || c == '+' || c == '-'))
+        return 1;
+    return 0;
+}
 
-    for (int i = 0; i < size; i++)
-    {
-        printf("%d\n", arr[i]);
-    }
-}
-int partition(int *arr, int s, int e)
+char *infixtopostfix(char *infix)
 {
-    int pivot = arr[e];
-    int i = s - 1; // to exchange smaller  elements
-    for (int j = s; j < e; j++)
+    n = (struct stack *)malloc(sizeof(struct stack));
+    n->top = -1;
+    n->size = 100;
+
+    n->arr = (char *)malloc(sizeof(char));
+
+    char *postfix = (char *)malloc((strlen(infix) + 1) * sizeof(char));
+    int i = 0; // tracks infix
+    int j = 0; // tracks postfix
+
+    while (infix[i] != '\0')
     {
-        if (arr[j] <= pivot)
+printf("%s",postfix);
+        if (!isoperator(infix[i])&&infix[i]!='('&&infix[i]!=')')
         {
+            postfix[j] = infix[i];
             i++;
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            j++;
+        }
+        else if(infix[i]=='('){
+            push(n, infix[i]);
+                i++;
+        }
+         else if(infix[i]==')'){
+   
+          while(n->arr[n->top]!='('){
+            char c=pop(n);
+            postfix[j++]=c;
+            printf("Popped :%c",c);
+          }
+         char c=pop(n);
+          printf("Popped :%c",c);
+          i++;
+         }
+
+        else
+        {
+
+            if (precedence(infix[i]) > precedence(n->arr[n->top]))
+            {
+                push(n, infix[i]);
+                i++;
+            }
+            else
+            {
+                postfix[j] = pop(n);
+                j++;
+            }
         }
     }
-    i++;
-    int temp = pivot; // change pivot
-    arr[e] = arr[i];
-    arr[i] = temp;
-    return i;
-}
-void quicksort(int *arr, int s, int e)
-{
-    if (s >= e)
-    {
-        return;
-    }
-    int pidx = partition(arr, s, e);
-    quicksort(arr, s, pidx - 1);
-    quicksort(arr, pidx + 1, e);
-}
 
+    while (!isempty(n))
+    {
+        postfix[j] = pop(n);
+        j++;
+    }
+    postfix[j] = '\0';
+    return postfix;
+}
 int main()
 {
-    printf("Enter size :\n");
     int size;
+    printf("Enter size :\n");
     scanf("%d", &size);
-    int arr[size];
-    create(arr, size);
-    printf("Original array :\n");
-    print(arr, size);
-    quicksort(arr, 0, size - 1);
-    printf("Sorted array :\n");
-    print(arr, size);
+    char infix[size];
+    printf("Enter data :\n");
+    scanf("%s", infix);
+
+    printf("Data is :\n");
+    printf("%s\n", infix);
+    printf("Post Fix expression is :\n");
+    printf("%s", infixtopostfix(infix));
 }

@@ -45,6 +45,7 @@ void inorder(struct node *n)
     printf("%d ", n->data);
     inorder(n->rnext);
 }
+
 struct node *insert(struct node *n, int key)
 {
 

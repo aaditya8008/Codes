@@ -1,72 +1,83 @@
 #include<stdio.h>
 #include<stdlib.h>
-struct node {
-    int data;
-    struct node *next;
-}*head,*n,*head1,*head2,*prev;
+#include<string.h>
+struct stack{
+    int top;
+    int*arr;
+    int size;
+}*s,*n;
 
-struct node *create(struct node *head,int i){
-    n= (struct node*)malloc(sizeof(struct node));
-    scanf("%d",&n->data);
-    if(i==0){
-        head=n;
-        prev=head;
-
-    }
-    prev->next=n;
-    n->next=NULL;
-    prev=n;
-    return head;
+int isoperator(char c)
+{
+    if ((c == '^' || c == '*' || c == '/' || c == '+' || c == '-'))
+        return 1;
+    return 0;
 }
-struct node *merge(struct node**head1,struct node**head2,struct node**head,int i){
+void push(struct stack*n,int c){
+    n->top++;
+n->arr[n->top]=c;
 
-n= (struct node*)malloc(sizeof(struct node));
+}
+int pop(struct stack*n){
+    int c=n->arr[n->top];
+    n->top--;
+    return c;
+}
+int isempty(struct stack *n){
+    if(n->top==-1)
+    return 1;
+    return 0;
+}
+int postfixevaluation(char *postfix){
+n=(struct stack*)malloc(sizeof(struct stack));
+n->top=-1;
+n->size=strlen(postfix);
+n->arr=(int*)malloc(sizeof(int)*strlen(postfix));
 
-while(*head1!=NULL&&*head2!=NULL){
-    if((*head1)->data>(*head2)->data){
-        n->data=(*head1)->data;
-        (*head1)=(*head1)->next;
-    }
-    else if((*head1)->data<=(*head2)->data){
-        n->data=(*head2)->data;
-        *head2=(*head2)->next;
-    }if(i==0){
-        *head=n;
-        prev=*head;
+int i=0;
+int j=0;
 
-    }
-    i++;
-    }
-    while((*head1!=NULL)){
-         n->data=(*head1)->data;
-        (*head1)=(*head1)->next;
-    }printf("Yes\n");
-    while((*head2!=NULL)){
-         n->data=(*head2)->data;
-        (*head2)=(*head2)->next;
-    }
+while(postfix[i]!='\0'){
+    printf("HELLO : %d \n",postfix[i]-'0');
     
-    
-    prev->next=n;
-    n->next=NULL;
-    prev=n;
-    
+ if(!isoperator(postfix[i])&&postfix[i]!=' '){
+push(n,postfix[i]-'0');
 
+}
+else if(postfix[i]!=' '){
+int var2=pop(n);
+int var1=pop(n);
+printf("Var 1:%d\n Var 2:%d\n",var1,var2);
+switch(postfix[i]){
+case '+':{
+    push(n,(var1)+(var2));
+    break;
+}
+case '-':{
+    push(n,(var1)-(var2));break;
+}
+case '/':{
+    push(n,(var1)/(var2));break;
+}
+case '^':{
+    push(n,(var1)^(var2));break;
+}
+}
+
+}
+i++;
+}
+return n->arr[n->top];
 }
 int main(){
-int s;
-scanf("%d",&s);
-printf("Enter first linked list :\n");
-for(int i=0;i<s;i++)
-head1=create(head1,i);
-printf("Enter second linked list :\n");
-for(int i=0;i<s;0)
-head2=create(head2,i);
-int  i=0;
-merge(&head1,&head2,&head,i++);
-while(head!=NULL){
-    printf("%d\n",head->data);
-    head=head->next;
-}
+    int size=10;
+
+
+char postfix[size];
+
+printf("Enter Expression :\n");
+fgets(postfix,size-1,stdin);
+printf("aNSWER :%d",postfixevaluation(postfix));
+
 
 }

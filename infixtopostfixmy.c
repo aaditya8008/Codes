@@ -78,27 +78,29 @@ char *infixtopostfix(char *infix)
     while (infix[i] != '\0')
     {
 
-        if (!isoperator(infix[i])&&infix[i]!='('&&infix[i]!=')')
+        if (!isoperator(infix[i]) && infix[i] != '(' && infix[i] != ')')
         {
             postfix[j] = infix[i];
             i++;
             j++;
         }
-        else if(infix[i]=='('){
+        else if (infix[i] == '(')
+        {
             push(n, infix[i]);
-                i++;
+            i++;
         }
-         else if(infix[i]==')'){
-   
-          while(n->arr[n->top]!='('){
+        else if (infix[i] == ')')
+        {
 
-            postfix[j++]= pop(n);
+            while (n->arr[n->top] != '(')
+            {
 
-          }
-         pop(n);
-         
-          i++;
-         }
+                postfix[j++] = pop(n);
+            }
+            pop(n);
+
+            i++;
+        }
 
         else
         {
